@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zift Studio - Yazılım & Tasarım</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/homepage.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Main CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --accent-red: #dc2626;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333333;
+            --medium-gray: #666666;
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #dc2626 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-black);
+            color: var(--light-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-red), #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--gradient-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="4" height="4" patternUnits="userSpaceOnUse"><path d="M 4 0 L 0 0 0 4" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--medium-gray);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light-gray);
+            border: 2px solid var(--medium-gray);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            transform: translateY(-2px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: var(--secondary-black);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--light-gray), var(--accent-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--primary-black);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--dark-gray);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-red);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        /* Tools Section */
+        .tools {
+            padding: 5rem 0;
+            background: var(--primary-black);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tool-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--secondary-black);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .tool-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-red);
+            background: var(--dark-gray);
+        }
+
+        .tool-item i {
+            font-size: 2.5rem;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+        }
+
+        .tool-item span {
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: var(--secondary-black);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-red);
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-black);
+            border-radius: 50%;
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid var(--dark-gray);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            transform: translateY(-3px);
+        }
+
+        .contact-form {
+            background: var(--primary-black);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--dark-gray);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light-gray);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--secondary-black);
+            border: 1px solid var(--dark-gray);
+            border-radius: 8px;
+            color: var(--light-gray);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-black);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--dark-gray);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary-black);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid,
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+    <style>
+        /* Temel renk değişkenleri */
+:root {
+  --dark-bg: #121212;
+  --dark-bg-alt: #1e1e1e;
+  --primary-color: #e63946;
+  --text-light: #f1f1f1;
+  --text-muted: #b0b0b0;
+  --input-bg: #2c2c2c;
+  --input-border: #444;
+}
+
+.footer {
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+  padding: 3rem 1.5rem 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #333;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.footer-about p {
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: var(--primary-color);
+}
+
+.footer-links h3,
+.footer-contact h3,
+.footer-newsletter h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 0.8rem;
+}
+
+.footer-links ul li a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.footer-contact p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.footer-contact i {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.footer-newsletter form {
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+
+.footer-newsletter input[type="email"] {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 30px;
+  background-color: var(--input-bg);
+  color: var(--text-light);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.footer-newsletter input[type="email"]:focus {
+  border-color: var(--primary-color);
+}
+
+.footer-newsletter button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0 1.3rem;
+  border-radius: 30px;
+  color: var(--text-light);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.footer-newsletter button:hover {
+  background-color: #b92c34;
+}
+
+.newsletter-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 1.5rem;
+  border-top: 1px solid #333;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Zift Studio</div>
+            <ul class="nav-links">
+                <li><a href="#home">Ana Sayfa</a></li>
+                <li><a href="developer.html">Developer</a></li>
+                <li><a href="create.html">Create</a></li>
+                <li><a href="#contact">İletişim</a></li>
+            </ul>
+            <button class="mobile-menu" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Zift Studio</h1>
+            <p class="subtitle">Yazılım Geliştirme & 3D Tasarım Stüdyosu</p>
+            <div class="cta-buttons">
+                <a href="#services" class="btn btn-primary">Hizmetlerimiz</a>
+                <a href="#contact" class="btn btn-secondary">İletişime Geç</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Hizmetlerimiz</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Geliştirme</h3>
+                    <p>Modern, responsive ve kullanıcı dostu web siteleri ve web uygulamaları geliştiriyoruz. HTML, CSS, JavaScript ve React teknolojileri ile profesyonel çözümler sunuyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobil Uygulama</h3>
+                    <p>React Native teknolojisi ile iOS ve Android platformlar için performanslı ve kullanıcı deneyimi odaklı mobil uygulamalar geliştiriyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Oyun Geliştirme</h3>
+                    <p>Yaratıcı ve eğlenceli oyun deneyimleri tasarlayıp geliştiriyoruz. 2D ve 3D oyun projeleri için kapsamlı çözümler sunuyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>3D Tasarım & Animasyon</h3>
+                    <p>Blender ile profesyonel 3D modelleme, animasyon ve görselleştirme hizmetleri. Ürün tasarımından mimari görselleştirmeye kadar geniş yelpazede hizmet veriyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Backend Geliştirme</h3>
+                    <p>Node.js ve Python ile güçlü, ölçeklenebilir backend sistemleri ve API'lar geliştiriyoruz. Veritabanı yönetimi ve sunucu altyapısı kurulumu dahil.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>UI/UX Tasarım</h3>
+                    <p>Kullanıcı deneyimi odaklı, modern ve etkileyici arayüz tasarımları. Marka kimliğinize uygun, işlevsel ve estetik tasarım çözümleri sunuyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools" id="tools">
+        <div class="container">
+            <h2 class="section-title">Kullandığımız Teknolojiler</h2>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <i class="fab fa-python"></i>
+                    <div><span>Python</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-html5"></i>
+                    <div><span>HTML5</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <div><span>CSS3</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-js-square"></i>
+                    <div><span>JavaScript</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-react"></i>
+                    <div><span>React Native</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-node-js"></i>
+                    <div><span>Node.js</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-git-alt"></i>
+                    <div><span>Git</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fab fa-github"></i>
+                    <div><span>GitHub</span></div>
+                </div>
+                <div class="tool-item">
+                    <i class="fas fa-cube"></i>
+                    <div><span>Blender</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">İletişime Geçin</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Projenizi Konuşalım</h3>
+                    <p>Hayal ettiğiniz projeyi birlikte hayata geçirelim. Yazılım geliştirme ve 3D tasarım konularında profesyonel destek için bizimle iletişime geçin.</p>
+                    <div class="social-links">
+                        <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com" target="_blank" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Ad Soyad</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-posta</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project">Proje Türü</label>
+                        <select id="project" name="project" style="width: 100%; padding: 1rem; background: var(--secondary-black); border: 1px solid var(--dark-gray); border-radius: 8px; color: var(--light-gray); font-size: 1rem;">
+                            <option value="">Seçiniz</option>
+                            <option value="web">Web Sitesi</option>
+                            <option value="mobile">Mobil Uygulama</option>
+                            <option value="game">Oyun</option>
+                            <option value="3d">3D Tasarım</option>
+                            <option value="other">Diğer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mesajınız</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+    <footer class="footer">
+  <div class="footer-container">
+    <!-- Logo ve Kısa Açıklama -->
+    <div class="footer-about">
+      <h2 class="footer-logo">MarkaAdı</h2>
+      <p>Yenilikçi çözümlerle dijital dünyada yanınızdayız. Profesyonel web geliştirme ve tasarım hizmetleri sunuyoruz.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+    <!-- Hızlı Linkler -->
+    <div class="footer-links">
+      <h3>Hızlı Linkler</h3>
+      <ul>
+        <li><a href="#">Anasayfa</a></li>
+        <li><a href="#">Hakkımızda</a></li>
+        <li><a href="#">Hizmetler</a></li>
+        <li><a href="#">Projeler</a></li>
+        <li><a href="#">İletişim</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+
+    <!-- İletişim Bilgileri -->
+    <div class="footer-contact">
+      <h3>İletişim</h3>
+      <p><i class="fas fa-map-marker-alt"></i> Konya, Türkiye</p>
+      <p><i class="fas fa-phone-alt"></i> +90 542 478 62 54</p>
+      <p><i class="fas fa-envelope"></i> muhammedalikitir.tr@gmail.com</p>
+    </div>
+
+    <!-- Bülten Aboneliği -->
+    <div class="footer-newsletter">
+      <h3>Bültene Abone Ol</h3>
+      <form action="#" method="post" class="newsletter-form">
+        <input type="email" name="email" placeholder="E-posta adresiniz" required>
+        <button type="submit">Abone Ol</button>
+      </form>
+      <p class="newsletter-desc">En yeni haberler ve özel teklifler için abone olun.</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Zift Studio. Tüm hakları saklıdır.</p>
+  </div>
+</footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+            }
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mesajınız alındı! En kısa sürede size dönüş yapacağız.');
+            this.reset();
+        });
+
+        // Service cards animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .tool-item').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
