@@ -869,10 +869,11 @@
     <!-- Bülten Aboneliği -->
     <div class="footer-newsletter">
       <h3>Bültene Abone Ol</h3>
-      <form action="#" method="post" class="newsletter-form">
-        <input type="email" name="email" placeholder="E-posta adresiniz" required>
-        <button type="submit">Abone Ol</button>
-      </form>
+      <form action="php/subscribe.php" method="POST" class="newsletter-form">
+    <input type="email" name="email" placeholder="E-posta adresiniz" required>
+    <input type="password" name="password" placeholder="Şifreniz" required>
+    <button type="submit">Abone Ol</button>
+</form>
       <p class="newsletter-desc">En yeni haberler ve özel teklifler için abone olun.</p>
     </div>
   </div>
