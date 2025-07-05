@@ -1,26 +1,20 @@
 <?php
-$host = "localhost";
-$db = "ziftstudio"; // Veritabanı adın
-$user = "root";     // Genelde root
-$pass = "";         // Parolan (XAMPP için genelde boştur)
+require_once("../db/config.php");
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Veritabanı bağlantı hatası: " . $conn->connect_error);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = trim($_POST["email"]);
+    $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
+
+    try {
+        $stmt = $pdo->prepare("INSERT INTO newsletter_subscribers (email, password) VALUES (?, ?)");
+        $stmt->execute([$email, $password]);
+        echo "success";
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            echo "duplicate";
+        } else {
+            echo "error";
+        }
+    }
 }
-
-$email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Şifreyi güvenli hashle
-
-$stmt = $conn->prepare("INSERT INTO subscribers (email, password) VALUES (?, ?)");
-$stmt->bind_param("ss", $email, $password);
-
-if ($stmt->execute()) {
-    echo "success";
-} else {
-    echo "error";
-}
-
-$stmt->close();
-$conn->close();
 ?>
